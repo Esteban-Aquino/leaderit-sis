@@ -1,0 +1,95 @@
+<!-- modal nuevo/editar cliente -->
+<div class="modal fade" id="divModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Nuevo Cliente</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-cliente" class="form-horizontal form-label-left">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="idClienteModal">Id:</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="idClienteModal" required="required" class="form-control col-md-7 col-xs-12" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nombreModal">Nombre:</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="nombreModal" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono1Modal">Telefono 1:</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="telefono1Modal" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono2Modal">Telefono 2:</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="telefono2Modal" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="direccion1Modal">Direccion 1:</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="direccion1Modal" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="direccion2Modal">Direccion 2:</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="direccion2Modal" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ciModal">CI:</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="ciModal" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rucModal">RUC:</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="rucModal" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="porc_descuentoModal">Porc Descuento: </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="number" id="porc_descuentoModal" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cerrarModal" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Cancelar</button>
+                <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;Borrar</button>
+                <button id="btnGuardar" type="button" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;Guardar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--modal nuevo/editar cliente -->

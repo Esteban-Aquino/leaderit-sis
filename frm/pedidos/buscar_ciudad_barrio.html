@@ -1,0 +1,82 @@
+<div id="divModalCiudadBarrio" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" 
+                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Ciudades / Barrios</h4>
+            </div>
+            <div class="modal-body">
+                
+
+
+                <div class="panel-body">
+                    <form id="form-buscar">
+                        <input type="hidden" id="pagina" name="pagina" value="1"/>
+                        <input type="hidden" id="nro_dir" name="nro_dir"/>
+                        <div class="row">
+                            <div class="col col-md-1">
+                                <label class="form-control-static">Buscar</label>
+                            </div>
+                            <div class="col col-md-10">
+                                <input id="buscar_texto" name="buscar_texto" type="text"
+                                       onkeyup="listarCiudadBarrioAjax()"
+                                       class="form-control input-sm">
+                            </div>
+                            <div class="col col-md-1">
+                                <button id="boton-buscar" 
+                                        type="button"
+                                        onclick="listarCiudadBarrioAjax()" 
+                                        class="btn btn-sm btn-primary">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <table id ="tbListar" class="table table-bordered table-hover table-striped table-responsive cod">
+                        <thead>
+                            <tr>
+                                <th>Cod. Ciudad</th>
+                                <th>Desc. Ciudad</th>
+                                <th>Cod. Barrio</th>
+                                <th>Desc. Barrio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_listar">
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7">
+                                    <ul class="pager">
+                                        <li>
+                                            <a href="#" onclick="anterior('listarCiudadBarrioAjax()')">
+                                                <span aria-hidden="true">&larr;</span> Anterior
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" onclick="siguiente('listarCiudadBarrioAjax()')">
+                                                Siguiente <span aria-hidden="true">&rarr;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <script>
+                    listarCiudadBarrioAjax();
+                    siguienteCampo('#buscar_texto', '#boton-buscar', false);
+                </script>
+
+            </div>
+            <div class="modal-footer">
+                <button id="botonCancelar" type="button" class="btn btn-primary"
+                        data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
