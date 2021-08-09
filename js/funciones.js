@@ -25,6 +25,27 @@ function ajax(pDatosFormulario, pUrl, pBeforeSend, pSucces, pError, pComplete) {
     });
 }
 
+function ajaxPut(pDatosFormulario, pUrl, pBeforeSend, pSucces, pError, pComplete) {
+    //validarSesion();
+    var usr = new Object();
+    usr.token = sessionStorage.getItem('token');
+    eval(pBeforeSend);
+    $.ajax({
+        async: true,
+        type: 'PUT',
+        url: pUrl,
+        data: pDatosFormulario,
+        dataType: 'json',
+        headers: usr
+    }).done(function (json) {
+        eval(pSucces);
+    }).fail(function (e) {
+        eval(pError);
+    }).always(function (objeto, exito, error) {
+        eval(pComplete);
+    });
+}
+
 function ajaxGet(pUrl, pBeforeSend, pSucces, pError, pComplete) {
     //validarSesion();
     var usr = new Object();
@@ -34,6 +55,27 @@ function ajaxGet(pUrl, pBeforeSend, pSucces, pError, pComplete) {
         async: true,
         type: 'GET',
         url: pUrl,
+        dataType: 'json',
+        headers: usr
+    }).done(function (json) {
+        eval(pSucces);
+    }).fail(function (e) {
+        eval(pError);
+    }).always(function (objeto, exito, error) {
+        eval(pComplete);
+    });
+}
+
+function ajaxDel(pDatosFormulario, pUrl, pBeforeSend, pSucces, pError, pComplete) {
+    //validarSesion();
+    var usr = new Object();
+    usr.token = sessionStorage.getItem('token');
+    eval(pBeforeSend);
+    $.ajax({
+        async: true,
+        type: 'DELETE',
+        url: pUrl,
+        data: pDatosFormulario,
         dataType: 'json',
         headers: usr
     }).done(function (json) {
@@ -490,8 +532,8 @@ function tieneAcceso(acceso, token) {
         sessionStorage.removeItem("token");
         location.href = "login";
     } else {
-       sessionStorage.removeItem('token');
-        sessionStorage.setItem("token", token); 
+        sessionStorage.removeItem('token');
+        sessionStorage.setItem("token", token);
     }
 }
 
@@ -589,71 +631,89 @@ function cargarModal(pRuta, pFocoEntrar, pFocoSalir, pEvento) {
 
 }
 
+function CargaDatatables(dtName, row) {
+    destroy_DataTables(dtName);
+    $('#' + dtName + ' tbody').html(row);
+    init_DataTables(dtName);
+}
+function destroy_DataTables(dtName) {
+    if (typeof ($.fn.DataTable) === 'undefined') {
+        return;
+    }
+
+    if ($.fn.DataTable.isDataTable('#' + dtName)) {
+        $('#' + dtName).DataTable().destroy();
+    }
+}
+
 function init_DataTables(dtName) {
 
     if (typeof ($.fn.DataTable) === 'undefined') {
         return;
     }
 
-    var handleDataTableButtons = function () {
-        if ($("#" + dtName).length) {
-            $("#" + dtName).DataTable({
-                dom: "Blfrtip",
-                buttons: [
-                    {
-                        extend: "excel",
-                        className: "btn-lg btn-primary"
+    if (!$.fn.DataTable.isDataTable('#' + dtName)) {
+        var handleDataTableButtons = function () {
+            if ($("#" + dtName).length) {
+                $("#" + dtName).DataTable({
+                    dom: "Blfrtip",
+                    buttons: [
+                        {
+                            extend: "excel",
+                            className: "btn-lg btn-primary"
+                        },
+                        {
+                            extend: "print",
+                            className: "btn-lg btn-primary"
+                        }
+                    ],
+                    language: {
+                        processing: "Procesando...",
+                        search: "Buscar:",
+                        lengthMenu: "Mostrar _MENU_ Registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered: "(Filtrando de _MAX_ registros del total)",
+                        infoPostFix: "",
+                        loadingRecords: "Cargando..",
+                        zeroRecords: "No hay registros",
+                        emptyTable: "No hay registros",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        },
+                        aria: {
+                            sortAscending: ": Ordenar Ascendente",
+                            sortDescending: ": Ordenar Descendente"
+                        },
+                        buttons: {
+                            print: '<i class="fa fa-print"></i>',
+                            excel: '<i class="fa fa-file-excel-o"></i>'
+                        }
                     },
-                    {
-                        extend: "print",
-                        className: "btn-lg btn-primary"
-                    }
-                ],
-                language: {
-                    processing: "Procesando...",
-                    search: "Buscar:",
-                    lengthMenu: "Mostrar _MENU_ Registros",
-                    info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                    infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                    infoFiltered: "(Filtrando de _MAX_ registros del total)",
-                    infoPostFix: "",
-                    loadingRecords: "Cargando..",
-                    zeroRecords: "No hay registros",
-                    emptyTable: "No hay registros",
-                    paginate: {
-                        first: "Primero",
-                        previous: "Anterior",
-                        next: "Siguiente",
-                        last: "Ultimo"
-                    },
-                    aria: {
-                        sortAscending: ": Ordenar Ascendente",
-                        sortDescending: ": Ordenar Descendente"
-                    },
-                    buttons: {
-                        print: '<i class="fa fa-print"></i>',
-                        excel: '<i class="fa fa-file-excel-o"></i>'
-                    }
-                },
-                formatNumber: function (toFormat) {
-                    return toFormat.toString().replace(
-                            /\B(?=(\d{3})+(?!\d))/g, "'"
-                            );
-                }/*,
-                 responsive: true,
-                 autoWidth: true,
-                 scrollX: true*/
-            });
-        }
-    };
-    TableManageButtons = function () {
-        "use strict";
-        return {
-            init: function () {
-                handleDataTableButtons();
+                    formatNumber: function (toFormat) {
+                        return toFormat.toString().replace(
+                                /\B(?=(\d{3})+(?!\d))/g, "'"
+                                );
+                    }/*,
+                     responsive: true,
+                     autoWidth: true,
+                     scrollX: true*/
+                });
             }
         };
-    }();
-    TableManageButtons.init();
+        TableManageButtons = function () {
+            "use strict";
+            return {
+                init: function () {
+                    handleDataTableButtons();
+                }
+            };
+        }();
+        TableManageButtons.init();
+    }
+
 }
 ;

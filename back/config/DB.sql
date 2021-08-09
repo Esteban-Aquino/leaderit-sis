@@ -33,6 +33,6 @@ CREATE TABLE IF NOT EXISTS `CLIENTES` (
   `ci` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
   `ruc` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
   `porc_descuento` float DEFAULT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 

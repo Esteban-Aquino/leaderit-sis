@@ -8,10 +8,6 @@ function inicializarForma() {
     $("#botonNuevo").on('click', function () {
         cargarModalClientes();
     });
-
-    $("#dtClientes tr").on('click', function () {
-        cargarModalClientes();
-    });
 }
 ;
 
@@ -23,13 +19,19 @@ function cargarModalClientes() {
                     console.log('Guardar');
                     guardar();
                 });
+                $('#btnBorrar').on('click', function () {
+                    console.log('Borrar');
+                    estaSeguroBorrar();
+                });
             });
 
     setTimeout(function () {
         $('#nombreModal').focus();
+        $('#btnBorrar').attr('disabled','disabled');
     }, 100);
 
-};
+}
+;
 
 
 
@@ -47,7 +49,6 @@ function cargarClientes() {
 function cargarClientesAjaxSuccess(json) {
     var row = "";
     var datos = json["datos"];
-
     $.each(datos, function (key, value) {
         //console.log(value);
         row += "<tr class='manito' onclick='seleccionar_cliente($(this))'>";
@@ -59,22 +60,23 @@ function cargarClientesAjaxSuccess(json) {
         row += "<td>" + value.RUC + "</td>";
         row += "</tr>";
     });
-    $('#dtClientesDetalle').html(row);
-    init_DataTables('dtClientes');
+    CargaDatatables('dtClientes', row);
 }
 
 function seleccionar_cliente($this) {
-    //console.log($this.find('td'));
+    //console.log($this.find('th').eq(0).text());
     var ID = $this.find('th').eq(0).text();
-    cargarModalClientes();
+    if (!empty(ID)) {
+        cargarModalClientes();
 
-    setTimeout(function () {
-        $("#idClienteModal").val(ID);
-        $("#nombreModal").focus();
-
-        // Buscar cliente
-        cargarCliente(ID);
-    }, 100);
+        setTimeout(function () {
+            $("#idClienteModal").val(ID);
+            $("#nombreModal").focus();
+            $("#btnBorrar").removeAttr('disabled');
+            // Buscar cliente
+            cargarCliente(ID);
+        }, 100);
+    }
 
 }
 
@@ -112,14 +114,15 @@ function cargarClienteAjaxSuccess(json) {
 /***************  GUARDAR ********************/
 function guardar() {
     actualizaCliente();
+
     if (empty($("#idClienteModal").val())) {
         // nuevo
         guardarNuevo();
     } else {
         // actualizar
+        guardarModificar();
     }
 }
-
 
 function guardarNuevo() {
     swalCargando('Guardando');
@@ -138,13 +141,74 @@ function guardarNuevoAjaxSuccess(json) {
     var datos = json["datos"];
     //console.log(json.datos);
     if (!empty(json.datos)) {
-        swalCorrecto('Guarddo','Id:'+json.datos.id);
+        swalCorrecto('Guarddo', 'Id:' + json.datos.id);
         $('#cerrarModal').click();
+
         cargarClientes();
+
+    }
+}
+
+function guardarModificar() {
+    //console.log('Actualizando');
+    swalCargando('Actualizando');
+    var pDatosFormulario = JSON.stringify(cliente);
+    var pUrl = "api/clientes/" + cliente['ID'];
+    var pBeforeSend = "";
+    var pSucces = "guardarModificarAjaxSuccess(json)";
+    var pError = "ajax_error()";
+    var pComplete = "";
+    ajaxPut(pDatosFormulario, pUrl, pBeforeSend, pSucces, pError, pComplete);
+}
+
+function guardarModificarAjaxSuccess(json) {
+    swalCerrar();
+    var datos = json["datos"];
+    //console.log(json);
+    if (!empty(json.datos)) {
+        swalCorrecto('Actualizado', 'Id:' + json.datos.id);
+        $('#cerrarModal').click();
+
+        setTimeout(function () {
+            cargarClientes();
+        }, 200);
     }
 }
 
 /***************  /GUARDAR *******************/
+function estaSeguroBorrar() {
+    actualizaCliente();
+    estaSeguroSwal('Esta seguro que desea borral el cliente: '+cliente['ID'], 'eliminar()' , '');
+}
+function eliminar() {
+    //console.log('Actualizando');
+    
+    swalCargando('Eliminando');
+    var pDatosFormulario = "";
+    var pUrl = "api/clientes/" + cliente['ID'];
+    var pBeforeSend = "";
+    var pSucces = "eliminarAjaxSuccess(json)";
+    var pError = "ajax_error()";
+    var pComplete = "";
+    ajaxDel(pDatosFormulario, pUrl, pBeforeSend, pSucces, pError, pComplete);
+}
+
+function eliminarAjaxSuccess(json) {
+    swalCerrar();
+    var datos = json["datos"];
+    console.log(json);
+    if (!empty(json.datos)) {
+        swalCorrecto('Borrado', 'Id:' + json.datos.id);
+        $('#cerrarModal').click();
+
+        setTimeout(function () {
+            cargarClientes();
+        }, 200);
+    }
+}
+/***************  BORRAR *******************/
+
+/***************  /BORRAR *******************/
 
 function actualizaCliente() {
     cliente = {};
