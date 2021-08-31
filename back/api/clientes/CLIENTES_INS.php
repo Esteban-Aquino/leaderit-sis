@@ -6,7 +6,7 @@
  */
 require_once './back/DAO/clientesDB.php';
 
-$datos = "";
+$datos = [];
 $mensaje = "";
 $res_code = StatusCodes::HTTP_OK;
 $decoded = "";

@@ -497,7 +497,7 @@ function validarSesionAjax() {
 function ajaxValidarSession(pDatosFormulario, pUrl, pBeforeSend, pSucces, pError, pComplete) {
     var usr = new Object();
     usr.token = sessionStorage.getItem('token');
-    //console.log('token val2: '+sessionStorage.getItem('token'));
+    //console.log('token val: '+sessionStorage.getItem('token'));
     eval(pBeforeSend);
     $.ajax({
         async: true,

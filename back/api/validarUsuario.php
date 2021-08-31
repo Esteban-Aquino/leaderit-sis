@@ -14,12 +14,20 @@ $datos = "";
 $mensaje = "";
 $res_code = StatusCodes::HTTP_OK;
 $decoded = "";
+$ok = false;
+$usuario = '';
+$clave = '';
+$datos = [];
 
 // Verificar autenticidad del token
 if (VERIFICA_TOKEN) {
     $head = getallheaders();
-    $token = $head['token'];
-    //print $token;
+    if (array_key_exists('token', $head )) {
+        $token = $head['token'];
+    } else {
+        $token = 'NN';
+    }
+    //print_r( $head);
     if (nvl($token,'NN') != 'NN') {
         $decoded = validarToken($token); 
         //print_r($decoded);
@@ -71,4 +79,3 @@ if (!$ok) {
 
 
 print formatea_respuesta($acceso, $datos, $mensaje, $res_code, $token);
-?>

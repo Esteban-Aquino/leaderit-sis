@@ -12,7 +12,7 @@ try {
                 PASSWORD,
                 array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
             );
-   $stmt = $conn->query("select * from test");
+   $stmt = $conn->query("select * from clientes");
    $stmt->execute();
     while ($row = $stmt->fetch()) {
         print_r($row['test']."<BR>");
