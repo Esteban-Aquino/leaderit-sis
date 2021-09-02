@@ -5,8 +5,8 @@ $(document).ready(function () {
 function inicializar() {
     //listarPedidoAjax();
     //console.log(datosUsuario('COD_CALL') );
-    $('#COD_CALL').val(datosUsuario('COD_CALL'));
-    $('#NOM_CALL').val(datosUsuario('NOM_CALL'));
+    //$('#COD_CALL').val(datosUsuario('COD_CALL'));
+    //$('#NOM_CALL').val(datosUsuario('NOM_CALL'));
     /*$('#COD_DELIVERY').on('change', function (event) { // funcion callback , anonima
      precioDeliveryAjax();
      });*/

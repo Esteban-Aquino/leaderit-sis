@@ -16,11 +16,11 @@ function cargarModalClientes() {
     cargarModal('frm/clientes/modalDatosCliente.html', 'nombreModal', '',
             function () {
                 $('#btnGuardar').on('click', function () {
-                    console.log('Guardar');
+                    //console.log('Guardar');
                     guardar();
                 });
                 $('#btnBorrar').on('click', function () {
-                    console.log('Borrar');
+                    //console.log('Borrar');
                     estaSeguroBorrar();
                 });
             });

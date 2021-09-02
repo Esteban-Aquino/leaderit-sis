@@ -6,7 +6,7 @@
  * $_SERVER['DOCUMENT_ROOT'].
  */
 define("BASE_PATH", './leaderit');
-define("NOMBRE_EMPRESA", "SOLVE-IT");
+define("NOMBRE_EMPRESA", "LEADER IT");
 define("DB", "MYSQL");
 define("ENVIROMENT", "DESA");
 define("VERIFICA_TOKEN", TRUE);

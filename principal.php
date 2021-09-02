@@ -76,8 +76,7 @@ and open the template in the editor.
 
                                     <li><a><i class="fa fa-pencil-square-o"></i> Movimientos <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a onclick="cargar_formulario('frm/pedidos')">Solicitud de Compra</a></li>
-                                            <li><a onclick="cargar_formulario('frm/lista_pedidos_emitidos')">Solicitudes Emitidas</a></li>
+                                            <li><a onclick="cargar_formulario('frm/pedidos')">Facturacion</a></li>
                                             <li><a onclick="cargar_formulario('frm/consulta')">Consulta de Stock</a></li>
                                         </ul>
                                     </li>
